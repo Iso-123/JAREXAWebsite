@@ -1,0 +1,519 @@
+/* ===================================
+   JAREXA DASHBOARD DESIGN
+=================================== */
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #080810;
+  color: #f5f3ff;
+}
+
+/* SIDEBAR */
+
+.dashboard-sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  min-height: 100vh;
+  background: #10101b;
+  border-right: 1px solid #29293d;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.dashboard-sidebar .logo {
+  padding-left: 12px;
+}
+
+.dashboard-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dashboard-menu a {
+  color: #aaa;
+  text-decoration: none;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.dashboard-menu a:hover,
+.dashboard-menu a.active {
+  background: rgba(147, 51, 234, 0.15);
+  color: #d8b4fe;
+}
+
+#dashboardLogout {
+  margin-top: auto;
+  padding: 13px;
+  border-radius: 9px;
+  border: 1px solid #49304f;
+  background: #211322;
+  color: #f0a5c0;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+#dashboardLogout:hover {
+  background: #351b35;
+}
+
+/* MAIN CONTENT */
+
+.dashboard-main {
+  flex: 1;
+  min-width: 0;
+  padding: 45px 6%;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.dashboard-header h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.dashboard-header p {
+  color: #999;
+}
+
+#accountEmail {
+  background: #171725;
+  border: 1px solid #303048;
+  padding: 12px 18px;
+  border-radius: 10px;
+  color: #c084fc;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+/* DASHBOARD CARDS */
+
+.dashboard-card {
+  background: #11111d;
+  border: 1px solid #29293d;
+  border-radius: 18px;
+  padding: 35px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.12);
+}
+
+.dashboard-card h2 {
+  font-size: 23px;
+  margin-bottom: 10px;
+}
+
+.dashboard-card > p {
+  color: #999;
+  font-size: 14px;
+  margin-bottom: 25px;
+  line-height: 1.7;
+}
+
+/* PROFILE FORM */
+
+#profileForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#profileForm label,
+#profile-link label {
+  color: #ddd;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+#profileForm input:not([type="color"]),
+#profileForm textarea {
+  width: 100%;
+  padding: 15px;
+  background: #090912;
+  color: white;
+  border: 1px solid #303045;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#profileForm input:focus,
+#profileForm textarea:focus {
+  border-color: #9333ea;
+  box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.12);
+}
+
+#profileForm textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+#profileForm small {
+  color: #999;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* PROFILE SECTIONS */
+
+#social-links,
+#music-settings,
+#appearance {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 1px solid #29293d;
+  scroll-margin-top: 20px;
+}
+
+#social-links h3,
+#music-settings h3,
+#appearance h3 {
+  font-size: 19px;
+  margin-bottom: 10px;
+  color: #c084fc;
+}
+
+/* ACCENT COLOR */
+
+#profileColor {
+  width: 85px;
+  height: 48px;
+  background: transparent;
+  border: 1px solid #303045;
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+/* ===================================
+   FILE UPLOAD INPUTS
+=================================== */
+
+#profileForm #profileAvatar,
+#profileForm #profileBackground,
+#profileForm #profileSongCover {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 12px;
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  border-radius: 12px;
+  background: #100b1c;
+  color: #d8b4fe;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+#profileAvatar:hover,
+#profileBackground:hover,
+#profileSongCover:hover {
+  border-color: #c084fc;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.25);
+}
+
+#profileAvatar::file-selector-button,
+#profileBackground::file-selector-button,
+#profileSongCover::file-selector-button {
+  padding: 10px 17px;
+  margin-right: 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #9333ea, #6d28d9);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#profileAvatar::file-selector-button:hover,
+#profileBackground::file-selector-button:hover,
+#profileSongCover::file-selector-button:hover {
+  background: #a855f7;
+}
+
+/* ===================================
+   CUSTOM ALBUM COVER SECTION
+=================================== */
+
+.album-cover-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px solid rgba(99, 132, 255, 0.35);
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(20, 16, 45, 0.95),
+    rgba(15, 18, 45, 0.9)
+  );
+  box-shadow: 0 0 24px rgba(49, 85, 255, 0.08);
+}
+
+#music-settings .album-cover-settings h3 {
+  margin-bottom: 0;
+  color: #a9b8ff;
+  font-size: 18px;
+}
+
+.album-cover-settings > p {
+  color: #b9b5d1;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.album-cover-settings label {
+  color: #e2ddff;
+  font-weight: 600;
+}
+
+#profileForm #profileSongCover {
+  background: rgba(9, 12, 35, 0.9);
+  border: 1px dashed rgba(99, 132, 255, 0.65);
+  color: #c8d3ff;
+  padding: 16px;
+  border-radius: 14px;
+}
+
+#profileForm #profileSongCover:hover {
+  border-color: #93a8ff;
+  box-shadow: 0 0 18px rgba(49, 85, 255, 0.2);
+}
+
+#profileSongCover::file-selector-button {
+  background: linear-gradient(135deg, #3155ff, #7444e8);
+  box-shadow: 0 0 12px rgba(49, 85, 255, 0.2);
+}
+
+#profileSongCover::file-selector-button:hover {
+  background: linear-gradient(135deg, #4c6cff, #8b5cf6);
+}
+
+#albumCoverPreviewContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 12px;
+  padding: 18px;
+  background: rgba(7, 9, 28, 0.7);
+  border: 1px solid rgba(99, 132, 255, 0.25);
+  border-radius: 16px;
+}
+
+#albumCoverPreview {
+  display: block;
+  width: 140px !important;
+  height: 140px !important;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 2px solid #6384ff;
+  box-shadow: 0 0 25px rgba(49, 85, 255, 0.3);
+}
+
+/* SAVE BUTTON */
+
+.save-profile {
+  margin-top: 25px;
+  background: linear-gradient(135deg, #9333ea, #7c3aed);
+  border: none;
+  padding: 16px;
+  color: white;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.save-profile:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(147, 51, 234, 0.35);
+}
+
+.save-profile:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+#saveMessage {
+  font-size: 14px;
+  color: #c084fc;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+/* PROFILE PREVIEW */
+
+.profile-preview {
+  background:
+    radial-gradient(circle at top, rgba(147, 51, 234, 0.2), transparent 65%),
+    #090912;
+  border: 1px solid #303045;
+  border-radius: 18px;
+  padding: 50px 25px;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  overflow-wrap: anywhere;
+  transition: border-color 0.2s;
+}
+
+#previewAvatar {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #9333ea;
+  box-shadow: 0 0 25px rgba(147, 51, 234, 0.3);
+  margin-bottom: 20px;
+}
+
+#previewUsername {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+#previewBio {
+  color: #bbb;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+/* PROFILE LINK */
+
+#profile-link label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+#publicProfileLink {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  margin: 12px 0;
+  border: 1px solid #9333ea;
+  border-radius: 10px;
+  outline: none;
+  background: #100b1c;
+  color: #e9d5ff;
+  font-size: 14px;
+  box-shadow: 0 0 10px rgba(147, 51, 234, 0.15);
+}
+
+#publicProfileLink:focus {
+  border-color: #c084fc;
+}
+
+#generateProfileLink,
+#copyProfileLink {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+}
+
+#copyProfileLink {
+  border: 1px solid #a855f7;
+  background: linear-gradient(135deg, #9333ea, #6d28d9, #7e22ce);
+  box-shadow: 0 0 12px rgba(147, 51, 51, 0.2);
+}
+
+#linkMessage {
+  color: #c084fc;
+  font-size: 13px;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 900px) {
+  .dashboard-sidebar {
+    width: 200px;
+  }
+
+  .dashboard-main {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 650px) {
+  .dashboard-layout {
+    flex-direction: column;
+  }
+
+  .dashboard-sidebar {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    position: relative;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .dashboard-menu {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 5px;
+  }
+
+  .dashboard-menu a {
+    white-space: nowrap;
+    padding: 12px;
+  }
+
+  #dashboardLogout {
+    margin-top: 0;
+  }
+
+  .dashboard-main {
+    padding: 20px;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dashboard-header h1 {
+    font-size: 25px;
+  }
+
+  .dashboard-card {
+    padding: 22px;
+  }
+
+  .profile-preview {
+    padding: 35px 15px;
+  }
+
+  .album-cover-settings {
+    padding: 16px;
+  }
+}

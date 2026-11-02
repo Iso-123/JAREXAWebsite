@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dashboard — JAREXA</title>
+
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./dashboard.css">
+</head>
+
+<body>
+
+  <div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="dashboard-sidebar">
+
+      <a href="./index.html" class="logo">
+        JARE<span>XA</span>
+      </a>
+
+      <nav class="dashboard-menu">
+        <a href="./dashboard.html" class="active">
+          ◈ Dashboard
+        </a>
+
+        <a href="#profile-editor">
+          ◉ Edit Profile
+        </a>
+
+        <a href="#social-links">
+          ◇ Social Links
+        </a>
+
+        <a href="#music-settings">
+          ♫ Favourite Song
+        </a>
+
+        <a href="#appearance">
+          ✦ Appearance
+        </a>
+
+        <a href="#profile-link">
+          🔗 My Profile Link
+        </a>
+      </nav>
+
+      <button id="dashboardLogout" type="button">
+        Logout
+      </button>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="dashboard-main">
+
+      <!-- HEADER -->
+      <header class="dashboard-header">
+        <div>
+          <h1>Welcome to JAREXA</h1>
+          <p>Customize your digital identity.</p>
+        </div>
+
+        <span id="accountEmail">
+          Loading account...
+        </span>
+      </header>
+
+      <!-- PROFILE EDITOR -->
+      <section class="dashboard-card" id="profile-editor">
+
+        <h2>Edit Your Profile</h2>
+        <p>Personalize how your profile looks.</p>
+
+        <form id="profileForm">
+
+          <label for="profileUsername">
+            Username
+          </label>
+
+          <input
+            type="text"
+            id="profileUsername"
+            placeholder="Enter your username"
+            maxlength="30"
+          >
+
+          <label for="profileBio">
+            Bio
+          </label>
+
+          <textarea
+            id="profileBio"
+            placeholder="Tell people about yourself..."
+            maxlength="160"
+          ></textarea>
+
+          <!-- AVATAR -->
+          <label for="profileAvatar">
+            Upload Profile Picture
+          </label>
+
+          <input
+            type="file"
+            id="profileAvatar"
+            accept="image/png,image/jpeg,image/webp"
+          >
+
+          <small>
+            JPG, PNG or WebP — maximum 5 MB.
+          </small>
+
+          <!-- SOCIAL LINKS -->
+          <div id="social-links">
+
+            <h3>Social Links</h3>
+
+            <label for="profileDiscord">
+              Discord Server Link
+            </label>
+
+            <input
+              type="url"
+              id="profileDiscord"
+              placeholder="https://discord.gg/..."
+            >
+
+            <label for="profileRoblox">
+              Roblox Profile Link
+            </label>
+
+            <input
+              type="url"
+              id="profileRoblox"
+              placeholder="https://www.roblox.com/users/..."
+            >
+
+            <label for="profileFacebook">
+              Facebook Profile Link
+            </label>
+
+            <input
+              type="url"
+              id="profileFacebook"
+              placeholder="https://www.facebook.com/..."
+            >
+
+            <label for="profileInstagram">
+              Instagram Profile Link
+            </label>
+
+            <input
+              type="url"
+              id="profileInstagram"
+              placeholder="https://www.instagram.com/..."
+            >
+
+          </div>
+
+          <!-- FAVOURITE SONG -->
+          <div id="music-settings">
+
+            <h3>♫ Favourite Song</h3>
+
+            <label for="profileSongTitle">
+              Song Title
+            </label>
+
+            <input
+              type="text"
+              id="profileSongTitle"
+              placeholder="Enter your favourite song"
+              maxlength="100"
+            >
+
+            <label for="profileSongArtist">
+              Artist
+            </label>
+
+            <input
+              type="text"
+              id="profileSongArtist"
+              placeholder="Enter the artist"
+              maxlength="100"
+            >
+
+            <label for="profileSongURL">
+              Favourite Song Link
+            </label>
+
+            <input
+              type="url"
+              id="profileSongURL"
+              placeholder="Paste YouTube or Spotify link here"
+            >
+
+            <small>
+              Paste a YouTube, YouTube Music, or Spotify song link.
+              Visitors can open it to listen.
+            </small>
+
+            <!-- CUSTOM ALBUM COVER -->
+            <div class="album-cover-settings">
+
+              <h3>🎵 Custom Album Cover</h3>
+
+              <p>
+                Upload a custom cover for your favourite song.
+                This will appear on your public JAREXA profile.
+              </p>
+
+              <label for="profileSongCover">
+                Upload Album Cover
+              </label>
+
+              <input
+                type="file"
+                id="profileSongCover"
+                accept="image/png,image/jpeg,image/webp"
+              >
+
+              <small>
+                JPG, PNG or WebP — maximum 5 MB.
+                Square images are recommended.
+              </small>
+
+              <!-- ALBUM COVER PREVIEW -->
+              <div
+                class="album-cover-preview"
+                id="albumCoverPreviewContainer"
+                hidden
+              >
+
+                <img
+                  id="albumCoverPreview"
+                  src=""
+                  alt="Selected album cover"
+                  width="120"
+                  height="120"
+                  style="
+                    width: 120px;
+                    height: 120px;
+                    object-fit: cover;
+                    border-radius: 15px;
+                    border: 2px solid #6384ff;
+                    box-shadow: 0 0 20px rgba(49, 85, 255, 0.25);
+                    margin-top: 15px;
+                  "
+                >
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- APPEARANCE -->
+          <div id="appearance">
+
+            <h3>Appearance</h3>
+
+            <label for="profileColor">
+              Accent Color
+            </label>
+
+            <input
+              type="color"
+              id="profileColor"
+              value="#9333ea"
+            >
+
+            <label for="profileBackground">
+              Upload Background Picture
+            </label>
+
+            <input
+              type="file"
+              id="profileBackground"
+              accept="image/png,image/jpeg,image/webp"
+            >
+
+            <small>
+              JPG, PNG or WebP — maximum 5 MB.
+            </small>
+
+          </div>
+
+          <button
+            type="submit"
+            class="save-profile"
+          >
+            Save Profile
+          </button>
+
+          <p id="saveMessage" role="status"></p>
+
+        </form>
+
+      </section>
+
+      <!-- PROFILE PREVIEW -->
+      <section class="dashboard-card">
+
+        <h2>Profile Preview</h2>
+
+        <div
+          class="profile-preview"
+          id="profilePreview"
+        >
+
+          <img
+            id="previewAvatar"
+            src="https://placehold.co/120x120/181825/ffffff?text=J"
+            alt="Profile avatar"
+          >
+
+          <h2 id="previewUsername">
+            Your Username
+          </h2>
+
+          <p id="previewBio">
+            Your bio will appear here.
+          </p>
+
+        </div>
+
+      </section>
+
+      <!-- SHAREABLE PROFILE LINK -->
+      <section
+        class="dashboard-card"
+        id="profile-link"
+      >
+
+        <h2>🔗 My Profile Link</h2>
+
+        <p>
+          Generate a unique link to share your
+          JAREXA profile with anyone.
+        </p>
+
+        <label for="publicProfileLink">
+          Your Shareable Profile Link
+        </label>
+
+        <input
+          type="text"
+          id="publicProfileLink"
+          placeholder="Save your profile to generate a link"
+          readonly
+        >
+
+        <button
+          type="button"
+          id="generateProfileLink"
+          class="save-profile"
+        >
+          Generate My Profile Link
+        </button>
+
+        <button
+          type="button"
+          id="copyProfileLink"
+          class="save-profile"
+          disabled
+        >
+          🔗 Copy Profile Link
+        </button>
+
+        <p id="linkMessage" role="status"></p>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script
+    type="module"
+    src="./dashboard.js"
+  ></script>
+
+</body>
+</html>

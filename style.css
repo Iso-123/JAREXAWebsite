@@ -1,0 +1,766 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --background: #080810;
+  --surface: #11111d;
+  --surface-light: #171726;
+  --primary: #9333ea;
+  --primary-light: #a855f7;
+  --text: #ffffff;
+  --muted: #a1a1b5;
+  --border: #29293e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--background);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid #c084fc;
+  outline-offset: 3px;
+}
+
+/* NAVIGATION */
+
+.navbar {
+  width: 100%;
+  padding: 25px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  background: rgba(10, 10, 20, 0.9);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  color: white;
+  font-size: 27px;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: -1px;
+}
+
+.logo span {
+  color: var(--primary-light);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-links a {
+  color: #c4c4d0;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover {
+  color: #c084fc;
+}
+
+.nav-links .nav-button {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  padding: 11px 22px;
+  border-radius: 9px;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.nav-links .nav-button:hover {
+  background: var(--primary-light);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* HERO */
+
+.hero {
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 85px 20px;
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(147, 51, 234, 0.24),
+      transparent 55%
+    ),
+    #080810;
+}
+
+.hero-content {
+  width: 100%;
+  max-width: 850px;
+  animation: fadeUp 0.7s ease both;
+}
+
+.badge {
+  display: inline-block;
+  padding: 10px 20px;
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: 50px;
+  color: #d8b4fe;
+  font-size: 13px;
+  margin-bottom: 25px;
+}
+
+.hero h1 {
+  font-size: clamp(38px, 6vw, 72px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -2px;
+  margin-bottom: 25px;
+}
+
+.hero h1 span {
+  display: block;
+  background: linear-gradient(
+    90deg,
+    #d8b4fe,
+    #a855f7,
+    #7c3aed
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.8;
+  max-width: 620px;
+  margin: 0 auto 35px;
+}
+
+/* HERO BUTTONS */
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.hero-buttons button,
+.secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 49px;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    transform 0.2s,
+    background 0.2s,
+    box-shadow 0.2s,
+    border-color 0.2s;
+}
+
+#getStartedBtn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  box-shadow: 0 0 25px rgba(147, 51, 234, 0.35);
+}
+
+#getStartedBtn:hover {
+  background: var(--primary-light);
+  transform: translateY(-3px);
+  box-shadow: 0 0 35px rgba(147, 51, 234, 0.5);
+}
+
+.secondary-btn {
+  border: 1px solid #44445a;
+  color: white;
+  background: #151520;
+}
+
+.secondary-btn:hover {
+  border-color: var(--primary-light);
+  transform: translateY(-3px);
+}
+
+/* FEATURES */
+
+.features {
+  padding: 100px 8%;
+  text-align: center;
+}
+
+.features h2 {
+  font-size: clamp(28px, 4vw, 38px);
+  margin-bottom: 15px;
+}
+
+.section-subtitle {
+  color: var(--muted);
+  margin-bottom: 50px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 35px 25px;
+  border-radius: 16px;
+  text-align: left;
+  transition:
+    transform 0.25s,
+    border-color 0.25s,
+    box-shadow 0.25s;
+}
+
+.feature-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px rgba(147, 51, 234, 0.14);
+}
+
+.feature-card h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.feature-card p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* FOOTER */
+
+footer {
+  padding: 30px 20px;
+  text-align: center;
+  color: #85859b;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+}
+
+/* LOGIN & SIGNUP MODAL */
+
+.auth-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 20px;
+}
+
+.auth-modal.active {
+  display: flex;
+}
+
+.auth-box {
+  position: relative;
+  background: #12121f;
+  border: 1px solid #7030b5;
+  border-radius: 18px;
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 0 45px rgba(147, 51, 234, 0.2);
+}
+
+.auth-box h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.auth-box p {
+  color: var(--muted);
+  margin-bottom: 25px;
+  font-size: 14px;
+}
+
+.auth-box input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #303045;
+  border-radius: 9px;
+  background: #090912;
+  color: white;
+  outline: none;
+  font-size: 14px;
+}
+
+.auth-box input:focus {
+  border-color: var(--primary-light);
+}
+
+#authSubmit {
+  width: 100%;
+  padding: 15px;
+  background: var(--primary);
+  border: none;
+  border-radius: 9px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+#authSubmit:hover {
+  background: var(--primary-light);
+}
+
+#authSubmit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.close-modal {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  background: transparent;
+  color: #aaa;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.close-modal:hover {
+  color: white;
+}
+
+#authMessage {
+  margin-top: 18px;
+  margin-bottom: 0;
+  color: #d8b4fe;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* TABLET */
+
+@media (max-width: 900px) {
+  .feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 20px;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    font-size: 23px;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+  }
+
+  .nav-links .nav-button {
+    padding: 9px 12px;
+  }
+
+  .hero {
+    min-height: 75vh;
+    padding: 70px 18px;
+  }
+
+  .hero h1 {
+    letter-spacing: -1px;
+  }
+
+  .hero p {
+    font-size: 14px;
+  }
+
+  .features {
+    padding: 75px 20px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    padding: 28px 22px;
+  }
+
+  .auth-box {
+    padding: 35px 22px;
+  }
+}
+
+/* JAREXA PASSWORD VISIBILITY */
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  padding-right: 55px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 15px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: #c084fc;
+  cursor: pointer;
+}
+
+.toggle-password svg {
+  width: 21px;
+  height: 21px;
+}
+
+.toggle-password:hover {
+  color: white;
+}
+
+.toggle-password:focus-visible {
+  outline: 2px solid #c084fc;
+  outline-offset: 2px;
+}
+
+.toggle-password svg [hidden] {
+  display: none;
+}
+
+/* JAREXA PASSWORD VISIBILITY BUTTON */
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 52px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+  padding: 0;
+
+  border: none;
+  background: transparent;
+  color: #c084fc;
+  cursor: pointer;
+}
+
+.password-toggle svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.password-toggle:hover {
+  color: #e9d5ff;
+}
+
+/* ==========================================
+   JAREXA — PASSWORD EYE ICON FIX
+========================================== */
+
+.auth-box .password-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.auth-box .password-wrapper input {
+  display: block;
+  width: 100%;
+  padding-right: 55px;
+}
+
+.auth-box .password-wrapper .toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  left: auto;
+  bottom: auto;
+
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  height: 28px;
+
+  margin: 0;
+  padding: 0;
+
+  border: none;
+  border-radius: 6px;
+
+  background: transparent;
+  color: #c084fc;
+
+  cursor: pointer;
+  z-index: 2;
+}
+
+.auth-box .password-wrapper .toggle-password svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.auth-box .password-wrapper .toggle-password:hover {
+  color: #e9d5ff;
+}
+
+.auth-box .password-wrapper .toggle-password:focus-visible {
+  outline: 2px solid #c084fc;
+  outline-offset: 3px;
+}
+
+/* =====================================
+   JAREXA - FIX PASSWORD EYE ALIGNMENT
+===================================== */
+
+.auth-box .password-wrapper {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+}
+
+.auth-box .password-wrapper #password {
+  display: block !important;
+  width: 100% !important;
+  padding-right: 55px !important;
+}
+
+.auth-box .password-wrapper #togglePassword {
+  position: absolute !important;
+
+  top: 0 !important;
+  right: 12px !important;
+  bottom: 0 !important;
+  left: auto !important;
+
+  transform: none !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 32px !important;
+  height: 100% !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+
+  color: #c084fc !important;
+  cursor: pointer;
+}
+
+.auth-box .password-wrapper #togglePassword svg {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0;
+}
+/* =====================================
+   JAREXA PASSWORD VISIBILITY
+===================================== */
+
+.auth-box .password-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.auth-box .password-wrapper #password {
+  display: block;
+  width: 100%;
+  padding-right: 55px;
+}
+
+.auth-box .password-wrapper #togglePassword {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  bottom: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  padding: 0;
+  margin: 0;
+
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #c084fc;
+
+  cursor: pointer;
+  z-index: 2;
+}
+
+.auth-box .password-wrapper #togglePassword svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.auth-box .password-wrapper #togglePassword:hover {
+  color: #e9d5ff;
+}
+
+.auth-box .password-wrapper #togglePassword:focus-visible {
+  outline: 2px solid #c084fc;
+  outline-offset: 3px;
+}
+
+.auth-box .password-wrapper #togglePassword svg [hidden] {
+  display: none;
+}
+
+/* ==========================================
+   JAREXA — CUSTOM ALBUM COVER
+========================================== */
+
+#jarexaAlbumCover {
+  display: block;
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 15px;
+  border: 1px solid rgba(99, 132, 255, 0.45);
+  box-shadow: 0 0 20px rgba(49, 85, 255, 0.3);
+  transition: transform 0.25s ease;
+}
+
+#jarexaAlbumCover:hover {
+  transform: scale(1.05);
+}
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+  #jarexaAlbumCover {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+}
