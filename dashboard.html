@@ -97,6 +97,18 @@
             maxlength="160"
           ></textarea>
 
+          <!-- LOCATION -->
+          <label for="profileLocation">
+            Location
+          </label>
+
+          <input
+            type="text"
+            id="profileLocation"
+            placeholder="Enter your location"
+            maxlength="60"
+          >
+
           <!-- AVATAR -->
           <label for="profileAvatar">
             Upload Profile Picture
@@ -155,6 +167,16 @@
               type="url"
               id="profileInstagram"
               placeholder="https://www.instagram.com/..."
+            >
+
+            <label for="profileTikTok">
+              TikTok Profile Link
+            </label>
+
+            <input
+              type="url"
+              id="profileTikTok"
+              placeholder="https://www.tiktok.com/@username"
             >
 
           </div>
@@ -283,6 +305,25 @@
 
             <small>
               JPG, PNG or WebP — maximum 5 MB.
+            </small>
+
+            <!-- BACKGROUND DARKNESS -->
+            <label for="profileBackgroundOverlay">
+              Background Darkness:
+              <strong id="backgroundOverlayValue">45%</strong>
+            </label>
+
+            <input
+              type="range"
+              id="profileBackgroundOverlay"
+              min="0"
+              max="100"
+              value="45"
+              step="1"
+            >
+
+            <small>
+              0% = Clear background. 100% = Very dark background.
             </small>
 
           </div>

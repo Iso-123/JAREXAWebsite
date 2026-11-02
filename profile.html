@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +43,9 @@
       <!-- BIO -->
       <p id="publicBio"></p>
 
+      <!-- LOCATION -->
+      <p id="publicLocation" class="profile-location" hidden></p>
+
       <!-- SOCIAL LINKS -->
       <div
         class="social-buttons"
@@ -59,20 +63,35 @@
 
         <div class="song-info">
 
+          <!-- CUSTOM ALBUM COVER -->
+          <img
+            id="jarexaAlbumCover"
+            class="song-cover"
+            src=""
+            alt="Album cover"
+            width="60"
+            height="60"
+            hidden
+          >
+
+          <!-- FALLBACK MUSIC ICON -->
           <span
             class="song-icon"
+            id="songFallbackIcon"
             aria-hidden="true"
           >
             ♫
           </span>
 
-          <div>
+          <!-- SONG DETAILS -->
+          <div class="song-details">
             <strong id="songTitle"></strong>
             <p id="songArtist"></p>
           </div>
 
         </div>
 
+        <!-- SONG LINK -->
         <a
           id="songLink"
           class="song-link"

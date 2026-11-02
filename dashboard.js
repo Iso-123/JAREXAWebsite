@@ -53,12 +53,18 @@ const robloxInput = $("profileRoblox");
 const facebookInput = $("profileFacebook");
 const instagramInput = $("profileInstagram");
 const discordInput = $("profileDiscord");
+const tiktokInput = $("profileTikTok");
+const locationInput = $("profileLocation");
 
 const songTitleInput = $("profileSongTitle");
 const songArtistInput = $("profileSongArtist");
 const songURLInput = $("profileSongURL");
 
 const colorInput = $("profileColor");
+
+// Background darkness controls
+const backgroundOverlayInput = $("profileBackgroundOverlay");
+const backgroundOverlayValue = $("backgroundOverlayValue");
 
 const previewUsername = $("previewUsername");
 const previewBio = $("previewBio");
@@ -82,6 +88,7 @@ let hasUnsavedChanges = false;
 let savedAvatar = "";
 let savedBackground = "";
 let savedSongCover = "";
+let savedBackgroundOverlay = 45;
 
 let temporaryAvatarURL = null;
 let temporaryBackgroundURL = null;
@@ -90,9 +97,6 @@ let temporarySongCoverURL = null;
 // ======================================
 // PROFILE LINK
 // ======================================
-
-// Automatically works with the current
-// GitHub Pages repository path.
 
 function getProfileURL(uid) {
   const url = new URL(
@@ -117,15 +121,14 @@ function updateProfileLink() {
     return;
   }
 
-  // A published profile URL remains valid while editing its details.
   publicProfileLink.value = getProfileURL(currentUser.uid);
   copyLinkBtn.disabled = false;
 }
 
 function markUnsaved() {
   hasUnsavedChanges = true;
-  // Do not remove the existing public profile link.
   updateProfileLink();
+
   if (profilePublished) {
     linkMessage.textContent =
       "Your link still works. Save Profile to publish your latest changes.";
@@ -146,6 +149,7 @@ generateLinkBtn.addEventListener("click", () => {
   }
 
   updateProfileLink();
+
   linkMessage.textContent = hasUnsavedChanges
     ? "Your existing profile link is ready. Unsaved edits are not public yet."
     : "Your shareable profile link is ready!";
@@ -211,7 +215,10 @@ function clearTemporaryPreviews() {
 
   avatarInput.value = "";
   backgroundInput.value = "";
-  if (songCoverInput) songCoverInput.value = "";
+
+  if (songCoverInput) {
+    songCoverInput.value = "";
+  }
 }
 
 // ======================================
@@ -222,6 +229,7 @@ function updateSongCoverPreview() {
   if (!songCoverPreview || !songCoverPreviewContainer) return;
 
   const url = temporarySongCoverURL || savedSongCover;
+
   if (url) {
     songCoverPreview.src = url;
     songCoverPreviewContainer.hidden = false;
@@ -233,6 +241,7 @@ function updateSongCoverPreview() {
 
 function updatePreview() {
   updateSongCoverPreview();
+
   const username = usernameInput.value.trim();
   const bio = bioInput.value.trim();
   const color = colorInput.value;
@@ -255,11 +264,21 @@ function updatePreview() {
   const background =
     temporaryBackgroundURL || savedBackground;
 
+  const overlayValue = Number(backgroundOverlayInput.value);
+  const safeOverlay = Number.isFinite(overlayValue)
+    ? Math.min(100, Math.max(0, overlayValue))
+    : 45;
+
+  backgroundOverlayValue.textContent =
+    `${safeOverlay}%`;
+
+  const overlay = safeOverlay / 100;
+
   if (background) {
     profilePreview.style.backgroundImage =
       `linear-gradient(
-        rgba(10, 5, 20, 0.3),
-        rgba(10, 5, 20, 0.65)
+        rgba(10, 5, 20, ${overlay}),
+        rgba(10, 5, 20, ${overlay})
       ), url("${background}")`;
 
     profilePreview.style.backgroundSize = "cover";
@@ -350,7 +369,10 @@ function handleImageSelection(input, kind) {
 handleImageSelection(avatarInput, "avatar");
 handleImageSelection(backgroundInput, "background");
 
-// Custom album cover preview, using the existing image validation.
+// ======================================
+// CUSTOM ALBUM COVER PREVIEW
+// ======================================
+
 if (songCoverInput) {
   songCoverInput.addEventListener("change", () => {
     if (temporarySongCoverURL) {
@@ -359,12 +381,14 @@ if (songCoverInput) {
     }
 
     const file = songCoverInput.files[0];
+
     if (!file) {
       updateSongCoverPreview();
       return;
     }
 
     const error = validateImage(file);
+
     if (error) {
       songCoverInput.value = "";
       saveMessage.textContent = error;
@@ -373,11 +397,18 @@ if (songCoverInput) {
     }
 
     temporarySongCoverURL = URL.createObjectURL(file);
+
     markUnsaved();
     updateSongCoverPreview();
-    saveMessage.textContent = "Album cover preview ready. Click Save Profile.";
+
+    saveMessage.textContent =
+      "Album cover preview ready. Click Save Profile.";
   });
 }
+
+// ======================================
+// INPUT EVENTS
+// ======================================
 
 profileForm
   .querySelectorAll(
@@ -557,6 +588,8 @@ onAuthStateChanged(auth, async user => {
     facebookInput.value = "";
     instagramInput.value = "";
     discordInput.value = "";
+    tiktokInput.value = "";
+    locationInput.value = "";
 
     songTitleInput.value = "";
     songArtistInput.value = "";
@@ -567,6 +600,9 @@ onAuthStateChanged(auth, async user => {
     savedAvatar = "";
     savedBackground = "";
     savedSongCover = "";
+
+    savedBackgroundOverlay = 45;
+    backgroundOverlayInput.value = "45";
 
     // Load existing saved profile
     if (privateSnapshot.exists()) {
@@ -590,6 +626,12 @@ onAuthStateChanged(auth, async user => {
       discordInput.value =
         profile.discord || "";
 
+      tiktokInput.value =
+        profile.tiktok || "";
+
+      locationInput.value =
+        profile.location || "";
+
       songTitleInput.value =
         profile.songTitle || "";
 
@@ -607,6 +649,14 @@ onAuthStateChanged(auth, async user => {
       savedAvatar = profile.avatar || "";
       savedBackground = profile.background || "";
       savedSongCover = profile.songCover || "";
+
+      savedBackgroundOverlay =
+        Number.isFinite(profile.backgroundOverlay)
+          ? Math.min(100, Math.max(0, profile.backgroundOverlay))
+          : 45;
+
+      backgroundOverlayInput.value =
+        String(savedBackgroundOverlay);
     }
 
     profilePublished = publicSnapshot.exists();
@@ -691,6 +741,7 @@ profileForm.addEventListener("submit", async event => {
 
   if (songCoverFile) {
     const error = validateImage(songCoverFile);
+
     if (error) {
       saveMessage.textContent = error;
       return;
@@ -720,6 +771,11 @@ profileForm.addEventListener("submit", async event => {
       discord: validateOptionalURL(
         discordInput.value.trim(),
         "Discord"
+      ),
+
+      tiktok: validateOptionalURL(
+        tiktokInput.value.trim(),
+        "TikTok"
       )
     };
 
@@ -734,7 +790,7 @@ profileForm.addEventListener("submit", async event => {
 
   setFormDisabled(true);
   generateLinkBtn.disabled = true;
-  // Keep existing public link available during save/upload.
+
   updateProfileLink();
 
   try {
@@ -766,11 +822,16 @@ profileForm.addEventListener("submit", async event => {
       );
     }
 
-    // Upload album cover with its own image kind.
-    // The upload Worker must allow kind "songCover".
+    // Upload album cover
     if (songCoverFile) {
-      saveMessage.textContent = "Uploading album cover...";
-      songCoverURL = await uploadImage(songCoverFile, user, "songCover");
+      saveMessage.textContent =
+        "Uploading album cover...";
+
+      songCoverURL = await uploadImage(
+        songCoverFile,
+        user,
+        "songCover"
+      );
     }
 
     if (auth.currentUser?.uid !== user.uid) {
@@ -778,6 +839,12 @@ profileForm.addEventListener("submit", async event => {
         "Session changed. Please log in again."
       );
     }
+
+    const overlayNumber = Number(backgroundOverlayInput.value);
+
+    const safeOverlay = Number.isFinite(overlayNumber)
+      ? Math.min(100, Math.max(0, overlayNumber))
+      : 45;
 
     const profileData = {
       username,
@@ -787,10 +854,14 @@ profileForm.addEventListener("submit", async event => {
       background: backgroundURL,
       songCover: songCoverURL,
 
+      backgroundOverlay: safeOverlay,
+
       roblox: links.roblox,
       facebook: links.facebook,
       instagram: links.instagram,
       discord: links.discord,
+      tiktok: links.tiktok,
+      location: locationInput.value.trim(),
 
       color: colorInput.value,
 
@@ -819,6 +890,7 @@ profileForm.addEventListener("submit", async event => {
     savedAvatar = avatarURL;
     savedBackground = backgroundURL;
     savedSongCover = songCoverURL;
+    savedBackgroundOverlay = safeOverlay;
 
     profilePublished = true;
     hasUnsavedChanges = false;
@@ -833,6 +905,7 @@ profileForm.addEventListener("submit", async event => {
 
   } catch (error) {
     console.error("Profile save error:", error);
+
     updateProfileLink();
 
     saveMessage.textContent =
@@ -893,19 +966,20 @@ window.addEventListener("pagehide", () => {
   }
 });
 
-
 // ======================================
 // JAREXA PROFILE VIEWERS PANEL
-// Keeps the existing dashboard HTML/CSS intact.
 // ======================================
 
-const VIEWS_API = "https://jarexa-views-api.joshmaro265.workers.dev/views";
+const VIEWS_API =
+  "https://jarexa-views-api.joshmaro265.workers.dev/views";
 
 function createViewersPanel() {
   let panel = document.getElementById("jarexaViewersPanel");
+
   if (panel) return panel;
 
   const style = document.createElement("style");
+
   style.textContent = `
     #jarexaViewersPanel {
       margin: 24px 0;
@@ -916,20 +990,55 @@ function createViewersPanel() {
       color: #f5edff;
       box-shadow: 0 8px 30px rgba(0,0,0,.15);
     }
-    #jarexaViewersPanel h2 { margin: 0 0 8px; font-size: 22px; }
-    #jarexaViewersPanel .viewers-description { color: #bcaecb; margin: 0 0 18px; }
-    #jarexaViewersPanel .viewers-total {
-      background: #21172d; border: 1px solid #5d397d;
-      padding: 18px; border-radius: 12px; margin-bottom: 20px;
+
+    #jarexaViewersPanel h2 {
+      margin: 0 0 8px;
+      font-size: 22px;
     }
-    #jarexaViewersPanel .viewers-total span { display: block; color: #bcaecb; font-size: 13px; }
-    #jarexaViewersPanel .viewers-total strong { display: block; color: #c084fc; font-size: 32px; margin-top: 5px; }
-    #jarexaViewersPanel h3 { margin: 0 0 12px; font-size: 17px; }
-    #jarexaViewersPanel .viewers-list { color: #bcaecb; font-size: 14px; }
+
+    #jarexaViewersPanel .viewers-description {
+      color: #bcaecb;
+      margin: 0 0 18px;
+    }
+
+    #jarexaViewersPanel .viewers-total {
+      background: #21172d;
+      border: 1px solid #5d397d;
+      padding: 18px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    #jarexaViewersPanel .viewers-total span {
+      display: block;
+      color: #bcaecb;
+      font-size: 13px;
+    }
+
+    #jarexaViewersPanel .viewers-total strong {
+      display: block;
+      color: #c084fc;
+      font-size: 32px;
+      margin-top: 5px;
+    }
+
+    #jarexaViewersPanel h3 {
+      margin: 0 0 12px;
+      font-size: 17px;
+    }
+
+    #jarexaViewersPanel .viewers-list {
+      color: #bcaecb;
+      font-size: 14px;
+    }
+
     #jarexaViewersPanel .viewer-entry {
-      padding: 12px 0; border-bottom: 1px solid #40314e; color: #f5edff;
+      padding: 12px 0;
+      border-bottom: 1px solid #40314e;
+      color: #f5edff;
     }
   `;
+
   document.head.appendChild(style);
 
   panel = document.createElement("section");
@@ -963,14 +1072,22 @@ function createViewersPanel() {
   recentList.id = "jarexaRecentViewers";
   recentList.textContent = "Loading viewer information...";
 
-  panel.append(title, description, stat, recentTitle, recentList);
+  panel.append(
+    title,
+    description,
+    stat,
+    recentTitle,
+    recentList
+  );
 
   const main = document.querySelector("main");
+
   if (main) {
     main.appendChild(panel);
   } else {
     document.body.appendChild(panel);
   }
+
   return panel;
 }
 
@@ -985,40 +1102,60 @@ async function loadDashboardViewers(uid) {
 
   try {
     // GET only reads the count; it must not increment visits.
-    // The Worker must implement this route for dashboard reads.
     const url = new URL(VIEWS_API);
     url.searchParams.set("uid", uid);
 
-    const response = await fetch(url.href, { method: "GET" });
-    if (!response.ok) throw new Error("Views API GET is not available.");
+    const response = await fetch(url.href, {
+      method: "GET"
+    });
+
+    if (!response.ok) {
+      throw new Error("Views API GET is not available.");
+    }
 
     const data = await response.json();
+
     if (auth.currentUser?.uid !== uid) return;
 
-    if (Number.isSafeInteger(data.views) && data.views >= 0) {
-      count.textContent = data.views.toLocaleString("en-US");
+    if (
+      Number.isSafeInteger(data.views) &&
+      data.views >= 0
+    ) {
+      count.textContent =
+        data.views.toLocaleString("en-US");
     }
 
     list.replaceChildren();
 
     // Show only viewer records deliberately supplied by the server.
-    // Never guess anonymous visitor identities.
     if (Array.isArray(data.viewers)) {
       for (const viewer of data.viewers.slice(0, 10)) {
-        if (!viewer || typeof viewer.username !== "string" || !viewer.username.trim()) continue;
+        if (
+          !viewer ||
+          typeof viewer.username !== "string" ||
+          !viewer.username.trim()
+        ) {
+          continue;
+        }
+
         const entry = document.createElement("div");
         entry.className = "viewer-entry";
         entry.textContent = viewer.username.trim();
+
         list.appendChild(entry);
       }
     }
 
     if (!list.children.length) {
-      list.textContent = "No identified viewers recorded yet.";
+      list.textContent =
+        "No identified viewers recorded yet.";
     }
+
   } catch (error) {
     console.error("Profile viewers:", error);
+
     count.textContent = "—";
+
     list.textContent =
       "Viewer data isn't available yet. The views Worker needs a read-only dashboard endpoint.";
   }
